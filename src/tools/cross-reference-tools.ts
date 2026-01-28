@@ -51,8 +51,9 @@ export async function handleCrossReferencePerson(args: z.infer<typeof CrossRefer
             JSON.stringify(item)
           );
         }
-      }).catch(err => {
-        results.newspapers = [{ error: err.message }];
+      }).catch((err: unknown) => {
+        const message = err instanceof Error ? err.message : 'Unknown error';
+        results.newspapers = [{ error: message }];
       })
     );
   }
@@ -82,8 +83,9 @@ export async function handleCrossReferencePerson(args: z.infer<typeof CrossRefer
             JSON.stringify(person)
           );
         }
-      }).catch(err => {
-        results.wikitree = [{ error: err.message }];
+      }).catch((err: unknown) => {
+        const message = err instanceof Error ? err.message : 'Unknown error';
+        results.wikitree = [{ error: message }];
       })
     );
   }
@@ -111,8 +113,9 @@ export async function handleCrossReferencePerson(args: z.infer<typeof CrossRefer
             JSON.stringify(record)
           );
         }
-      }).catch(err => {
-        results.openarch = [{ error: err.message }];
+      }).catch((err: unknown) => {
+        const message = err instanceof Error ? err.message : 'Unknown error';
+        results.openarch = [{ error: message }];
       })
     );
   }

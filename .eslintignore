@@ -1,0 +1,6 @@
+dist/
+node_modules/
+**/*.test.ts
+**/__tests__/**
+**/__mocks__/**
+jest.config.js

@@ -41,7 +41,7 @@ const server = new Server(
   }
 );
 
-server.setRequestHandler(ListToolsRequestSchema, async () => {
+server.setRequestHandler(ListToolsRequestSchema, () => {
   return {
     tools: [
       {
@@ -105,7 +105,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   }
 });
 
-async function main() {
+async function main(): Promise<void> {
   const transport = new StdioServerTransport();
   await server.connect(transport);
 
