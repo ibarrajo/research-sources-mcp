@@ -11,7 +11,7 @@ Thank you for your interest in contributing! This document provides guidelines f
 
 2. **Clone and Install**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/research-sources-mcp
+   git clone https://github.com/ibarrajo/research-sources-mcp
    cd research-sources-mcp
    npm install
    ```

@@ -43,7 +43,7 @@ docker run -it research-sources-mcp
 ### From Source
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/research-sources-mcp
+git clone https://github.com/ibarrajo/research-sources-mcp
 cd research-sources-mcp
 npm install
 npm run build
@@ -119,7 +119,7 @@ search_findagrave_via_fs({
 
 ```bash
 # Clone repository
-git clone https://github.com/YOUR_USERNAME/research-sources-mcp
+git clone https://github.com/ibarrajo/research-sources-mcp
 cd research-sources-mcp
 
 # Install dependencies
@@ -275,8 +275,8 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 Built as part of the FamilySearch genealogy research system. Part of a suite of MCP servers for comprehensive genealogy research:
 
-- [familysearch-mcp](https://github.com/YOUR_USERNAME/familysearch-mcp) - FamilySearch API integration
-- [tree-analyzer-mcp](https://github.com/YOUR_USERNAME/tree-analyzer-mcp) - Family tree analysis and error detection
+- [familysearch-mcp](https://github.com/ibarrajo/familysearch-mcp) - FamilySearch API integration
+- [tree-analyzer-mcp](https://github.com/ibarrajo/tree-analyzer-mcp) - Family tree analysis and error detection
 - **research-sources-mcp** - External source search (this repository)
 
 ## Links
@@ -288,5 +288,5 @@ Built as part of the FamilySearch genealogy research system. Part of a suite of 
 
 ## Support
 
-- [Issues](https://github.com/YOUR_USERNAME/research-sources-mcp/issues)
-- [Discussions](https://github.com/YOUR_USERNAME/research-sources-mcp/discussions)
+- [Issues](https://github.com/ibarrajo/research-sources-mcp/issues)
+- [Discussions](https://github.com/ibarrajo/research-sources-mcp/discussions)
