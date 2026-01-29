@@ -27,7 +27,9 @@ export interface OpenArchivesResult {
   imageUrl?: string;
 }
 
-export async function searchOpenArchives(params: OpenArchivesSearchParams): Promise<OpenArchivesResult[]> {
+export async function searchOpenArchives(
+  params: OpenArchivesSearchParams
+): Promise<OpenArchivesResult[]> {
   const searchParams = new URLSearchParams();
 
   if (params.name) {
@@ -62,7 +64,7 @@ export async function searchOpenArchives(params: OpenArchivesSearchParams): Prom
     throw new Error(`Open Archives API error: ${response.status}`);
   }
 
-  const data = await response.json() as {
+  const data = (await response.json()) as {
     response?: {
       docs?: Array<{
         id?: string;
@@ -79,7 +81,7 @@ export async function searchOpenArchives(params: OpenArchivesSearchParams): Prom
 
   const docs = data.response?.docs ?? [];
 
-  return docs.map(doc => ({
+  return docs.map((doc) => ({
     id: doc.id ?? '',
     title: (doc.title ?? [])[0] ?? 'Unknown',
     date: doc.date ?? '',

@@ -30,13 +30,9 @@ describe('Find A Grave Utilities', () => {
     });
 
     it('should handle various record ID formats', () => {
-      const ids = [
-        '12345',
-        'memorial_67890',
-        'ark:/61903/1:1:TEST-ID',
-      ];
+      const ids = ['12345', 'memorial_67890', 'ark:/61903/1:1:TEST-ID'];
 
-      ids.forEach(inputId => {
+      ids.forEach((inputId) => {
         const result = extractMemorialIdFromFsRecord(inputId);
         expect(result).toBe(inputId);
       });

@@ -269,9 +269,7 @@ describe('Cross-Reference Person', () => {
     });
 
     it('should handle source errors gracefully', async () => {
-      (chroniclingAmerica.searchNewspapers as jest.Mock).mockRejectedValue(
-        new Error('API Error')
-      );
+      (chroniclingAmerica.searchNewspapers as jest.Mock).mockRejectedValue(new Error('API Error'));
       (wikitree.searchWikiTree as jest.Mock).mockResolvedValue([]);
       (cacheDb.cacheExternalMatch as jest.Mock).mockReturnValue(undefined);
 

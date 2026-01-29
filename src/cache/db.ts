@@ -45,14 +45,19 @@ export function cacheExternalMatch(
   const db = getDb();
   const now = new Date().toISOString();
 
-  db.prepare(`
+  db.prepare(
+    `
     INSERT OR REPLACE INTO external_matches (
       person_id, source_name, external_id, url, title, snippet, match_score, raw_json, searched_at
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(personId, sourceName, externalId, url, title, snippet, matchScore, rawJson, now);
+  `
+  ).run(personId, sourceName, externalId, url, title, snippet, matchScore, rawJson, now);
 }
 
-export function getExternalMatches(personId: string, sourceName?: string): Array<{
+export function getExternalMatches(
+  personId: string,
+  sourceName?: string
+): Array<{
   id: number;
   source_name: string;
   external_id: string;
@@ -64,11 +69,15 @@ export function getExternalMatches(personId: string, sourceName?: string): Array
   const db = getDb();
 
   if (sourceName) {
-    return db.prepare(`
+    return db
+      .prepare(
+        `
       SELECT * FROM external_matches
       WHERE person_id = ? AND source_name = ?
       ORDER BY match_score DESC
-    `).all(personId, sourceName) as Array<{
+    `
+      )
+      .all(personId, sourceName) as Array<{
       id: number;
       source_name: string;
       external_id: string;
@@ -78,11 +87,15 @@ export function getExternalMatches(personId: string, sourceName?: string): Array
       match_score: number;
     }>;
   } else {
-    return db.prepare(`
+    return db
+      .prepare(
+        `
       SELECT * FROM external_matches
       WHERE person_id = ?
       ORDER BY match_score DESC, source_name
-    `).all(personId) as Array<{
+    `
+      )
+      .all(personId) as Array<{
       id: number;
       source_name: string;
       external_id: string;

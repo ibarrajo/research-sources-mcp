@@ -2,10 +2,7 @@
 
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-} from '@modelcontextprotocol/sdk/types.js';
+import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js';
 
 import {
   SearchNewspapersSchema,
@@ -19,10 +16,7 @@ import {
   GetWikiTreePersonSchema,
   handleGetWikiTreePerson,
 } from './tools/wikitree-tools.js';
-import {
-  SearchOpenArchivesSchema,
-  handleSearchOpenArchives,
-} from './tools/openarch-tools.js';
+import { SearchOpenArchivesSchema, handleSearchOpenArchives } from './tools/openarch-tools.js';
 import {
   CrossReferencePersonSchema,
   handleCrossReferencePerson,
@@ -46,7 +40,8 @@ server.setRequestHandler(ListToolsRequestSchema, () => {
     tools: [
       {
         name: 'search_newspapers',
-        description: 'Search Chronicling America (Library of Congress) historic newspapers (1789-1963)',
+        description:
+          'Search Chronicling America (Library of Congress) historic newspapers (1789-1963)',
         inputSchema: SearchNewspapersSchema,
       },
       {
@@ -71,7 +66,8 @@ server.setRequestHandler(ListToolsRequestSchema, () => {
       },
       {
         name: 'cross_reference_person',
-        description: 'Search ALL external sources in parallel for a person (newspapers, WikiTree, Open Archives)',
+        description:
+          'Search ALL external sources in parallel for a person (newspapers, WikiTree, Open Archives)',
         inputSchema: CrossReferencePersonSchema,
       },
     ],
@@ -82,17 +78,71 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   try {
     switch (request.params.name) {
       case 'search_newspapers':
-        return { content: [{ type: 'text', text: await handleSearchNewspapers(SearchNewspapersSchema.parse(request.params.arguments)) }] };
+        return {
+          content: [
+            {
+              type: 'text',
+              text: await handleSearchNewspapers(
+                SearchNewspapersSchema.parse(request.params.arguments)
+              ),
+            },
+          ],
+        };
       case 'get_newspaper_page':
-        return { content: [{ type: 'text', text: await handleGetNewspaperPage(GetNewspaperPageSchema.parse(request.params.arguments)) }] };
+        return {
+          content: [
+            {
+              type: 'text',
+              text: await handleGetNewspaperPage(
+                GetNewspaperPageSchema.parse(request.params.arguments)
+              ),
+            },
+          ],
+        };
       case 'search_wikitree':
-        return { content: [{ type: 'text', text: await handleSearchWikiTree(SearchWikiTreeSchema.parse(request.params.arguments)) }] };
+        return {
+          content: [
+            {
+              type: 'text',
+              text: await handleSearchWikiTree(
+                SearchWikiTreeSchema.parse(request.params.arguments)
+              ),
+            },
+          ],
+        };
       case 'get_wikitree_person':
-        return { content: [{ type: 'text', text: await handleGetWikiTreePerson(GetWikiTreePersonSchema.parse(request.params.arguments)) }] };
+        return {
+          content: [
+            {
+              type: 'text',
+              text: await handleGetWikiTreePerson(
+                GetWikiTreePersonSchema.parse(request.params.arguments)
+              ),
+            },
+          ],
+        };
       case 'search_open_archives':
-        return { content: [{ type: 'text', text: await handleSearchOpenArchives(SearchOpenArchivesSchema.parse(request.params.arguments)) }] };
+        return {
+          content: [
+            {
+              type: 'text',
+              text: await handleSearchOpenArchives(
+                SearchOpenArchivesSchema.parse(request.params.arguments)
+              ),
+            },
+          ],
+        };
       case 'cross_reference_person':
-        return { content: [{ type: 'text', text: await handleCrossReferencePerson(CrossReferencePersonSchema.parse(request.params.arguments)) }] };
+        return {
+          content: [
+            {
+              type: 'text',
+              text: await handleCrossReferencePerson(
+                CrossReferencePersonSchema.parse(request.params.arguments)
+              ),
+            },
+          ],
+        };
       default:
         throw new Error(`Unknown tool: ${request.params.name}`);
     }

@@ -60,7 +60,7 @@ export async function searchWikiTree(params: WikiTreeSearchParams): Promise<Wiki
     throw new Error(`WikiTree API error: ${response.status}`);
   }
 
-  const data = await response.json() as {
+  const data = (await response.json()) as {
     status?: number;
     matches?: Array<{
       user_id?: number;
@@ -79,7 +79,7 @@ export async function searchWikiTree(params: WikiTreeSearchParams): Promise<Wiki
     return [];
   }
 
-  return data.matches.map(match => ({
+  return data.matches.map((match) => ({
     id: String(match.user_id ?? ''),
     name: match.Name ?? 'Unknown',
     firstName: match.FirstName ?? '',
@@ -97,7 +97,8 @@ export async function getWikiTreePerson(wikiTreeId: string): Promise<WikiTreePer
   const body = JSON.stringify({
     action: 'getPerson',
     key: wikiTreeId,
-    fields: 'Id,Name,FirstName,LastNameAtBirth,BirthDate,DeathDate,BirthLocation,DeathLocation,Privacy',
+    fields:
+      'Id,Name,FirstName,LastNameAtBirth,BirthDate,DeathDate,BirthLocation,DeathLocation,Privacy',
   });
 
   const response = await fetch(BASE_URL, {
@@ -113,7 +114,7 @@ export async function getWikiTreePerson(wikiTreeId: string): Promise<WikiTreePer
     throw new Error(`WikiTree API error: ${response.status}`);
   }
 
-  const data = await response.json() as {
+  const data = (await response.json()) as {
     status?: number;
     person?: {
       Id?: number;

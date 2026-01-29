@@ -125,9 +125,9 @@ describe('WikiTree', () => {
         status: 500,
       });
 
-      await expect(
-        searchWikiTree({ lastName: 'Smith' })
-      ).rejects.toThrow('WikiTree API error: 500');
+      await expect(searchWikiTree({ lastName: 'Smith' })).rejects.toThrow(
+        'WikiTree API error: 500'
+      );
     });
 
     it('should handle non-zero status response', async () => {
@@ -275,9 +275,7 @@ describe('WikiTree', () => {
         status: 503,
       });
 
-      await expect(getWikiTreePerson('Test-1')).rejects.toThrow(
-        'WikiTree API error: 503'
-      );
+      await expect(getWikiTreePerson('Test-1')).rejects.toThrow('WikiTree API error: 503');
     });
 
     it('should send correct request format', async () => {

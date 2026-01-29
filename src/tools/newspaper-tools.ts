@@ -1,5 +1,10 @@
 import { z } from 'zod';
-import { searchNewspapers, getNewspaperPage, type NewspaperSearchParams, type NewspaperPageParams } from '../sources/chronicling-america.js';
+import {
+  searchNewspapers,
+  getNewspaperPage,
+  type NewspaperSearchParams,
+  type NewspaperPageParams,
+} from '../sources/chronicling-america.js';
 import { cacheExternalMatch } from '../cache/db.js';
 
 export const SearchNewspapersSchema = z.object({
@@ -10,7 +15,9 @@ export const SearchNewspapersSchema = z.object({
   page: z.number().min(1).default(1).describe('Result page number'),
 });
 
-export async function handleSearchNewspapers(args: z.infer<typeof SearchNewspapersSchema>): Promise<string> {
+export async function handleSearchNewspapers(
+  args: z.infer<typeof SearchNewspapersSchema>
+): Promise<string> {
   const params: NewspaperSearchParams = {
     query: args.query,
     state: args.state,
@@ -35,19 +42,23 @@ export async function handleSearchNewspapers(args: z.infer<typeof SearchNewspape
     );
   }
 
-  return JSON.stringify({
-    total: results.totalItems,
-    count: results.items.length,
-    page: args.page,
-    items: results.items.map(item => ({
-      id: item.id,
-      title: item.title,
-      date: item.date,
-      page: item.page,
-      url: item.url,
-      snippet: item.snippet,
-    })),
-  }, null, 2);
+  return JSON.stringify(
+    {
+      total: results.totalItems,
+      count: results.items.length,
+      page: args.page,
+      items: results.items.map((item) => ({
+        id: item.id,
+        title: item.title,
+        date: item.date,
+        page: item.page,
+        url: item.url,
+        snippet: item.snippet,
+      })),
+    },
+    null,
+    2
+  );
 }
 
 export const GetNewspaperPageSchema = z.object({
@@ -57,7 +68,9 @@ export const GetNewspaperPageSchema = z.object({
   edition: z.number().min(1).optional().describe('Edition number (default 1)'),
 });
 
-export async function handleGetNewspaperPage(args: z.infer<typeof GetNewspaperPageSchema>): Promise<string> {
+export async function handleGetNewspaperPage(
+  args: z.infer<typeof GetNewspaperPageSchema>
+): Promise<string> {
   const params: NewspaperPageParams = {
     lccn: args.lccn,
     date: args.date,
@@ -67,10 +80,14 @@ export async function handleGetNewspaperPage(args: z.infer<typeof GetNewspaperPa
 
   const result = await getNewspaperPage(params);
 
-  return JSON.stringify({
-    url: result.url,
-    image_url: result.imageUrl,
-    ocr_text: result.ocrText.substring(0, 5000), // Limit OCR text length
-    ocr_length: result.ocrText.length,
-  }, null, 2);
+  return JSON.stringify(
+    {
+      url: result.url,
+      image_url: result.imageUrl,
+      ocr_text: result.ocrText.substring(0, 5000), // Limit OCR text length
+      ocr_length: result.ocrText.length,
+    },
+    null,
+    2
+  );
 }

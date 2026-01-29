@@ -10,7 +10,7 @@ export interface NewspaperSearchParams {
   query: string;
   state?: string;
   startDate?: string; // YYYY-MM-DD
-  endDate?: string;   // YYYY-MM-DD
+  endDate?: string; // YYYY-MM-DD
   page?: number;
 }
 
@@ -28,7 +28,9 @@ export interface NewspaperSearchResult {
   }>;
 }
 
-export async function searchNewspapers(params: NewspaperSearchParams): Promise<NewspaperSearchResult> {
+export async function searchNewspapers(
+  params: NewspaperSearchParams
+): Promise<NewspaperSearchResult> {
   const searchParams = new URLSearchParams({
     proxtext: params.query,
     format: 'json',
@@ -56,7 +58,7 @@ export async function searchNewspapers(params: NewspaperSearchParams): Promise<N
     throw new Error(`Chronicling America API error: ${response.status}`);
   }
 
-  const data = await response.json() as {
+  const data = (await response.json()) as {
     totalItems?: number;
     items?: Array<{
       id?: string;
@@ -69,7 +71,7 @@ export async function searchNewspapers(params: NewspaperSearchParams): Promise<N
     }>;
   };
 
-  const items = (data.items ?? []).map(item => {
+  const items = (data.items ?? []).map((item) => {
     const lccn = item.lccn ?? '';
     const date = item.date ?? '';
     const sequence = item.sequence ?? 1;
@@ -117,7 +119,7 @@ export async function getNewspaperPage(params: NewspaperPageParams): Promise<{
     throw new Error(`Chronicling America page error: ${response.status}`);
   }
 
-  const data = await response.json() as {
+  const data = (await response.json()) as {
     jp2?: string;
     ocr_eng?: string;
   };

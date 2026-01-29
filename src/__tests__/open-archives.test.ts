@@ -178,9 +178,9 @@ describe('Open Archives', () => {
         status: 500,
       });
 
-      await expect(
-        searchOpenArchives({ name: 'Test' })
-      ).rejects.toThrow('Open Archives API error: 500');
+      await expect(searchOpenArchives({ name: 'Test' })).rejects.toThrow(
+        'Open Archives API error: 500'
+      );
     });
 
     it('should handle empty results', async () => {

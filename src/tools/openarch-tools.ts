@@ -7,12 +7,20 @@ export const SearchOpenArchivesSchema = z.object({
   birth_year: z.string().optional().describe('Birth year (YYYY)'),
   death_year: z.string().optional().describe('Death year (YYYY)'),
   place: z.string().optional().describe('Place name'),
-  source_type: z.enum(['civil', 'church', 'notary', 'all']).default('all').describe('Type of records to search'),
-  country_code: z.enum(['NL', 'BE', 'FR']).optional().describe('Country code (NL=Netherlands, BE=Belgium, FR=France)'),
+  source_type: z
+    .enum(['civil', 'church', 'notary', 'all'])
+    .default('all')
+    .describe('Type of records to search'),
+  country_code: z
+    .enum(['NL', 'BE', 'FR'])
+    .optional()
+    .describe('Country code (NL=Netherlands, BE=Belgium, FR=France)'),
   limit: z.number().min(1).max(100).default(20).describe('Max results'),
 });
 
-export async function handleSearchOpenArchives(args: z.infer<typeof SearchOpenArchivesSchema>): Promise<string> {
+export async function handleSearchOpenArchives(
+  args: z.infer<typeof SearchOpenArchivesSchema>
+): Promise<string> {
   const params: OpenArchivesSearchParams = {
     name: args.name,
     birthYear: args.birth_year,
@@ -39,17 +47,21 @@ export async function handleSearchOpenArchives(args: z.infer<typeof SearchOpenAr
     );
   }
 
-  return JSON.stringify({
-    count: results.length,
-    results: results.map(r => ({
-      id: r.id,
-      title: r.title,
-      date: r.date,
-      place: r.place,
-      source_type: r.sourceType,
-      person_names: r.personNames,
-      url: r.archiveUrl,
-      image_url: r.imageUrl,
-    })),
-  }, null, 2);
+  return JSON.stringify(
+    {
+      count: results.length,
+      results: results.map((r) => ({
+        id: r.id,
+        title: r.title,
+        date: r.date,
+        place: r.place,
+        source_type: r.sourceType,
+        person_names: r.personNames,
+        url: r.archiveUrl,
+        image_url: r.imageUrl,
+      })),
+    },
+    null,
+    2
+  );
 }
