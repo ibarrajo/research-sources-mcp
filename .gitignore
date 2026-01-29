@@ -3,7 +3,8 @@ node_modules/
 
 # Build output
 dist/
-*.js
+src/**/*.js
+src/**/*.d.ts
 *.d.ts
 
 # Data and cache
